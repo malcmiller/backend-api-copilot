@@ -22,7 +22,9 @@ jobs:
             repo: context.repo.repo,
             issue_number: context.issue.number
           });
-          core.setOutput("body", issue.data.body);
+          const jsonSafeBody = JSON.stringify(issue.data.body);
+          core.setOutput("body", jsonSafeBody);
+
 
     - name: Print issue body
       run: echo "${{ steps.get_issue.outputs.body }}"
@@ -36,8 +38,18 @@ jobs:
             "messages": [{"role": "user", "content": "Implement this user story: ${{ steps.get_issue.outputs.body }}"}],
             "temperature": 0.7,
             "max_tokens": 100
-          }'
+          }' > response.json
     
+
+    - name: Parse and write files
+      run: |
+       mkdir -p src
+       jq -r '.choices[0].message.content' response.json | awk '
+       BEGIN {file=""}
+       /^- / {file=substr($0,3); next}
+       file {print > file}
+       '
+          
     - name: LS
       run: |
         ls -la
