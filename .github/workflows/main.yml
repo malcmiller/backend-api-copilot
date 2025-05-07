@@ -22,7 +22,7 @@ jobs:
             repo: context.repo.repo,
             issue_number: context.issue.number
           });
-          const prefixed = `Implement this user story:\n\n${issue.data.body}`;
+          const prefixed = `Implement this user story, only return the files and content in the format: file=content: \n\n${issue.data.body}`;
           const jsonSafeBody = JSON.stringify(prefixed);
           core.setOutput("body", jsonSafeBody);
     
