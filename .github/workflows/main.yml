@@ -25,10 +25,6 @@ jobs:
           const jsonSafeBody = JSON.stringify(issue.data.body);
           core.setOutput("body", jsonSafeBody);
 
-
-    - name: Print issue body
-      run: echo "${{ steps.get_issue.outputs.body }}"
-
     - name: Call Azure OpenAI API
       run: |
         curl -X POST "https://malmi-maeexi1k-eastus2.cognitiveservices.azure.com/openai/deployments/o4-mini/chat/completions?api-version=2024-12-01-preview" \
