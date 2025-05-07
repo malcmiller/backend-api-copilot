@@ -1,0 +1,28 @@
+name: Read Issue Body
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  read-issue-body:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Get issue body
+      id: get_issue
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const issue = await github.rest.issues.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number
+          });
+          core.setOutput("body", issue.data.body);
+
+    - name: Print issue body
+      run: echo "${{ steps.get_issue.outputs.body }}"
