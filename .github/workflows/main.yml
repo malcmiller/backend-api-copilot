@@ -34,8 +34,8 @@ jobs:
           -H "api-key: ${{ secrets.AZURE_OPENAI_API_KEY }}" \
           -d '{
             "messages": [{"role": "user", "content": ${{ steps.get_issue.outputs.body }}}],
-            "temperature": 0.7,
-            "max_tokens": 100
+            "max_completion_tokens": 100000,
+            "model": "o4-mini"
           }' > response.json
     
 
