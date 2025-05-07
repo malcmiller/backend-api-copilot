@@ -49,4 +49,5 @@ jobs:
     - name: LS
       run: |
         ls -la
+        cat response.json
         ls -la src
