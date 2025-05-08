@@ -9,7 +9,7 @@ class UserController {
     getUserById(req: Request, res: Response): void {
         const user = userService.getUserById(req.params.id);
         if (!user) {
-            res.status(404).json({ message: 'User not found' });
+            res.status(404).json({ error: 'User not found' });
         } else {
             res.json(user);
         }
@@ -23,7 +23,7 @@ class UserController {
     updateUser(req: Request, res: Response): void {
         const updatedUser = userService.updateUser(req.params.id, req.body);
         if (!updatedUser) {
-            res.status(404).json({ message: 'User not found' });
+            res.status(404).json({ error: 'User not found' }); // Updated error key
         } else {
             res.json(updatedUser);
         }
@@ -32,9 +32,9 @@ class UserController {
     deleteUser(req: Request, res: Response): void {
         const success = userService.deleteUser(req.params.id);
         if (!success) {
-            res.status(404).json({ message: 'User not found' });
+            res.status(404).json({ error: 'User not found' });
         } else {
-            res.status(204).send();
+            res.status(200).json({ message: 'User deleted successfully' });
         }
     }
 }
