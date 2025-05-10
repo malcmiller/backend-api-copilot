@@ -1,3 +1,25 @@
+# hve-demo
+
+## Continuous Integration (CI)
+
+This project uses GitHub Actions for continuous integration. All pushes and pull requests to the `main` and `develop` branches will trigger the CI workflow, which runs linting, type checking, and tests with coverage.
+
+### CI Workflow Steps
+- **Checkout repository**
+- **Set up Node.js (20.x)**
+- **Install dependencies** (`npm ci`)
+- **Run lint** (`npm run lint`)
+- **Run type-check** (`npm run type-check`)
+- **Run tests with coverage** (`npm run test`)
+
+The workflow will fail if any step fails. The CI status is visible in pull requests.
+
+#### CI Status
+
+![CI](https://github.com/${{github.repository}}/actions/workflows/ci.yml/badge.svg)
+
+---
+
 ## Pre-Commit Hooks Setup
 
 This project uses Husky to enforce code quality checks before each commit. The following checks are performed:
